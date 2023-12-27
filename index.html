@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>find(),findIndex() exercise</title>
+    <!--JS for Jasmine standalone library 5.1.1:don't forget to include lib/ folder-->
+    <link rel="shortcut icon" type="image/png" href="lib/jasmine-5.1.1/jasmine_favicon.png">
+    <link rel="stylesheet" href="lib/jasmine-5.1.1/jasmine.css">
+    <script src="lib/jasmine-5.1.1/jasmine.js"></script>
+    <script src="lib/jasmine-5.1.1/jasmine-html.js"></script>
+    <script src="lib/jasmine-5.1.1/boot0.js"></script>
+    <script src="lib/jasmine-5.1.1/boot1.js"></script><!--optional:configure Jasmine env-->
+    <!-- JS for Jasmine standalone library-->
+    
+    <script>
+function findUserByUsername(A,s) {
+  return A.find(obj=>obj.username===s)
+}
+function removeUser(A,s) {
+  let i = A.findIndex(obj=>obj.username === s)
+  if(i === -1) return
+  return A.splice(i,1)[0]
+}
+
+describe("#findUserByUsername",()=>{
+  let A
+  beforeEach(()=>A=[{username:"a"},{username:"b"}])
+  it("returns object if find an username that matches given string",()=>expect(findUserByUsername(A,"a")).toEqual({username:"a"}))
+  it("returns undefined if no username is found",()=>expect(findUserByUsername(A,'d')).toEqual(undefined))
+})
+describe("#removeUser",()=>{
+  let A
+  beforeEach(()=>{A=[{username:"a"},{username:"b"},{username:"c"}]})
+  it("removes user",()=>{
+    removeUser(A, "b")
+    expect(A.length).toEqual(2)
+    
+  })
+  it("returns removed user",()=>{
+    expect(removeUser(A,"c")).toEqual({ username: "c" })
+  })
+  it("returns undefined a user from an array",()=>{
+    expect(removeUser(A, "d")).toEqual(undefined)
+    expect(A.length).toEqual(3)
+  })
+})
+    </script>
+  </head>
+  <body>
+    <h3>9.2.5. arr.find(), arr.findIndex() exercise</h3>
+  </body>
+</html>
